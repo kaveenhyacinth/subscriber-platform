@@ -24,7 +24,7 @@
             if ($website->subscribers->contains($validated['user_id'])) {
                 return response()->json([
                     'message' => 'Already subscribed to \'' . $website->title . '\'',
-                ]);
+                ], 400);
             }
 
             // Attach user to website

@@ -14,7 +14,8 @@
         protected $fillable = [
             'title',
             'slug',
-            'content'
+            'content',
+            'website_id'
         ];
 
         public function website(): BelongsTo
