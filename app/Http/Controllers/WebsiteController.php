@@ -28,7 +28,7 @@
             }
 
             // Attach user to website
-            $website->subscribers()->attach($validated['user_id']);
+            $website->subscribers->attach($validated['user_id']);
 
             return response()->json([
                 'message' => 'Subscribed to \'' . $website->title . '\' successfully',

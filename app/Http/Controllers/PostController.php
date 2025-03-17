@@ -2,22 +2,17 @@
 
     namespace App\Http\Controllers;
 
+    use App\Mail\PostCreated;
     use App\Models\Post;
     use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\Mail;
 
     class PostController extends Controller
     {
-        /**
-         * Display a listing of the resource.
-         */
-        public function index()
-        {
-            //
-        }
 
-        /**
-         * Store a newly created resource in storage.
-         */
+        // Other CRUD methods have been skipped
+
+
         public function store(Request $request)
         {
             $request->merge([
@@ -40,31 +35,7 @@
             }
 
             return response()->json([
-                'message' => 'Post created successfully',
-            ]);
-        }
-
-        /**
-         * Display the specified resource.
-         */
-        public function show(Post $post)
-        {
-            //
-        }
-
-        /**
-         * Update the specified resource in storage.
-         */
-        public function update(Request $request, Post $post)
-        {
-            //
-        }
-
-        /**
-         * Remove the specified resource from storage.
-         */
-        public function destroy(Post $post)
-        {
-            //
+                'message' => 'Post created successfully'
+            ], 201);
         }
     }

@@ -12,6 +12,6 @@
          */
         public function run(): void
         {
-            Post::factory(20)->create();
+            Post::factory(2)->create();
         }
     }

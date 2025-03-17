@@ -15,7 +15,8 @@
             'title',
             'slug',
             'content',
-            'website_id'
+            'website_id',
+            'email_sent_at'
         ];
 
         public function website(): BelongsTo

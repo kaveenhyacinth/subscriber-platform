@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->longText('content');
+            $table->dateTime('email_sent_at')->nullable();
             $table->foreignIdFor(Website::class);
             $table->timestamps();
         });
