@@ -4,6 +4,7 @@
 
     use App\Mail\PostCreated;
     use App\Models\Website;
+    use DB;
     use Illuminate\Console\Command;
     use Illuminate\Support\Facades\Mail;
 
@@ -36,7 +37,20 @@
                 foreach ($newPosts as $post) {
                     $subscribers = $website->subscribers;
                     foreach ($subscribers as $subscriber) {
-                        Mail::to($subscriber->email)->send(new PostCreated($post));
+                        $hasSentMail = DB::table('post_subscriber')
+                            ->where('post_id', $post->id)
+                            ->where('subscriber_id', $subscriber->id)
+                            ->exists();
+
+                        if(!$hasSentMail) {
+                            Mail::to($subscriber->email)->send(new PostCreated($post));
+
+                            DB::table('post_subscriber')->insert([
+                                'post_id' => $post->id,
+                                'subscriber_id' => $subscriber->id,
+                                'sent_at' => now()
+                            ]);
+                        }
                     }
                     $post->update(['email_sent_at' => now()]);
                 }

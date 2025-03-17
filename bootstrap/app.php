@@ -17,7 +17,7 @@
             //
         })
         ->withSchedule(function (Schedule $schedule) {
-            $schedule->command(SendNewPostEmailsToSubscribers::class)->everySecond();
+            $schedule->command(SendNewPostEmailsToSubscribers::class)->everyMinute();
         })
         ->withExceptions(function (Exceptions $exceptions) {
             //
