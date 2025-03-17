@@ -1,49 +1,37 @@
 <?php
 
-namespace App\Http\Controllers;
+    namespace App\Http\Controllers;
 
-use App\Models\Website;
-use Illuminate\Http\Request;
+    use App\Models\Website;
+    use Illuminate\Http\Request;
 
-class WebsiteController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    class WebsiteController extends Controller
     {
-        //
-    }
+        // Website CRUD methods has been skipped
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        public function subscribe(Request $request, Website $website)
+        {
+            // Request body should contain user id since we are not using authentication
+            $request->merge([
+                'user_id' => $request['userId']
+            ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Website $website)
-    {
-        //
-    }
+            $validated = $request->validate([
+                'user_id' => 'required|integer|exists:users,id',
+            ]);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Website $website)
-    {
-        //
-    }
+            // Check if user is already subscribed to the website
+            if ($website->subscribers->contains($validated['user_id'])) {
+                return response()->json([
+                    'message' => 'Already subscribed to \'' . $website->title . '\'',
+                ]);
+            }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Website $website)
-    {
-        //
+            // Attach user to website
+            $website->subscribers()->attach($validated['user_id']);
+
+            return response()->json([
+                'message' => 'Subscribed to \'' . $website->title . '\' successfully',
+            ]);
+        }
     }
-}

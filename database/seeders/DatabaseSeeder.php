@@ -17,8 +17,18 @@
             // User::factory(10)->create();
 
             User::factory()->create([
-                'name' => 'Test User',
-                'email' => 'test@example.com',
+                'name' => 'Tom Smith',
+                'email' => 'tom@example.com',
+            ]);
+
+            User::factory()->create([
+                'name' => 'John Doe',
+                'email' => 'john@example.com',
+            ]);
+
+            User::factory()->create([
+                'name' => 'Mary Jane',
+                'email' => 'mary@example.com',
             ]);
 
             $this->call([

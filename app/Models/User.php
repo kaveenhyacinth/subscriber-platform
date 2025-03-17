@@ -46,4 +46,9 @@
                 'password' => 'hashed',
             ];
         }
+
+        public function subscriptions()
+        {
+            return $this->belongsToMany(Website::class, table: 'subscriptions');
+        }
     }
