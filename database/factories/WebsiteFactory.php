@@ -17,7 +17,9 @@ class WebsiteFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'title' => $this->faker->sentence(2),
+            'slug' => $this->faker->slug,
+            'description' => $this->faker->text,
         ];
     }
 }
